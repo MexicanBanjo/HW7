@@ -37,11 +37,20 @@ public class ProblemSolutions {
         int n = values.length;
 
         for (int i = 0; i < n - 1; i++) {
+            int selectedIdx = i;
+            for (int j = i + 1; j < n; j++) {
+                if (ascending && values[j] < values[selectedIdx]) {
+                    selectedIdx = j;
+                } else if (!ascending && values[j] > values[selectedIdx]) {
+                    selectedIdx = j;
+                }
+            }
 
-            // YOU CODE GOES HERE -- COMPLETE THE INNER LOOP OF THIS
-            // "SELECTION SORT" ALGORITHM.
-            // DO NOT FORGET TO ADD YOUR NAME / SECTION ABOVE
-
+            // Swap
+            int temp = values[i];
+            values[i] = values[selectedIdx];
+            values[selectedIdx] = temp;
+            }    
         }
 
     } // End class selectionSort
@@ -153,11 +162,16 @@ public class ProblemSolutions {
      */
 
     public static boolean asteroidsDestroyed(int mass, int[] asteroids) {
+        Arrays.sort(asteroids);
+        long currMass = mass;
 
-        // YOUR CODE GOES HERE, CONSIDER USING ARRAYS.SORT()
-
-        return false;
-
+        for (int asteroid : asteroids) {
+            if (currMass < asteroid) {
+                return false;
+            }
+            currMass += asteroid;
+        }
+        return true;
     }
 
 
@@ -191,11 +205,18 @@ public class ProblemSolutions {
      */
 
     public static int numRescueSleds(int[] people, int limit) {
+        Arrays.sort(people);
+        int i = 0, j = people.length - 1;
+        int sleds = 0;
 
-        // YOUR CODE GOES HERE, CONSIDER USING ARRAYS.SORT
-
-        return -1;
-
+        while (i <= j) {
+            if (people[i] + people[j] <= limit) {
+                i++;
+            }
+            j--;
+            sleds++;
+        }
+        return sleds;
     }
 
 } // End Class ProblemSolutions
